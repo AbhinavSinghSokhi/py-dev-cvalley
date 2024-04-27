@@ -33,7 +33,9 @@ def signupForm(request):
         return render(request, "signup.html")
 
 def dashboard(request):
-    return render(request, "dashboard.html", {'user_details': request.user})
+    user_tasks= Task.objects.filter(user=request.user)
+    print(user_tasks)
+    return render(request, "dashboard.html", {'user_details': request.user ,"tasks": user_tasks})
 
 
 def new_task(request):

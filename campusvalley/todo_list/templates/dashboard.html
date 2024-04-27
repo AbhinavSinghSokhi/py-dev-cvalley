@@ -36,5 +36,19 @@
     </div>
 
     <a href="logout"><button>logout</button></a>
+
+
+    <h1>Tasks list</h1>
+    {% if tasks  %}
+    {% for task in tasks %}
+
+    <div>
+        <h2 class="title">Title: {{ task.title }}</h2>
+        <p class="description">Description : {{ task.description }}</p>
+        <p class="category">Category: {{ task.category }}</p>
+        <p class="due_date">Due Date: {{ task.dueDate }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
 </body>
 </html>
