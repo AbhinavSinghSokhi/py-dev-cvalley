@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/todo.css' %}">
+</head>
+<body>
+    <section >
+        <div class="sign-up-section">
+            <div class="sign-up-image-sec">
+                <div class="sign-up-intro">
+                    <h1>Join Our Community!</h1>
+                    <h5>Sign up now to unlock exclusive content, connect with like-minded individuals, and stay updated on the latest news and offers.</h5>
+                    <h5>Membership is free and takes just a few seconds. </h5>
+                    <h5>Join us today!</h5>
+                </div>
+            </div>
+            <div class="sign-up-form-sec">
+                <div class="sign-up-form">
+                    <h1>Hey, Hello!</h1>
+                    <p>Enter you information to register yourself at our platform.</p>
+                    <form action="signupform" method="post" id="myForm">
+                        <!-- action="signupform" method="post" -->
+                        {% csrf_token %}
+                        <div>
+                            <label for="username">Username</label>
+                        </div>
+                        <div>
+                            <input type="text" name="username" id="username">
+                        </div>
+                        <div>
+                            <label for="email">Email</label>
+                        </div>
+                        <div>
+                            <input type="text" name="email" id="email">
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                        </div>
+                        <div>
+                            <input type="text" name="password" id="password">
+                        </div>
+                        <div>
+                            <button>Sign Up</button>
+                        </div>
+                    </form>
+                    <div>
+                        <p>Already a member?<a href="{% url 'index' %}">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

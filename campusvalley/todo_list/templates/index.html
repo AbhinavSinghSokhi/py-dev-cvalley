@@ -3,9 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo-List</title>
+    <title>LogIn</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/todo.css' %}">
 </head>
 <body>
-    todo-list
+    <section>
+        <div class="login-section">
+            <div class="login-text-sec">
+                <div class="login-text">
+                    <h1>Welcome Back!</h1>
+                    <h5>"Ready to dive back in? Log in to access your account, reconnect with your community, and pick up where you left off.</h5>
+                    <h5>Simply enter your credentials below to get started."</h5>
+                    <h5>Your journey awaits!</h5>
+                </div>
+            </div>
+            <div class="login-form-sec">
+                <div class="login-form">
+                    <h1>Login</h1>
+                    <p>Enter the information that you entered while signing up.</p>
+                    <form action="loginform" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username">
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="text" name="password" id="password">
+                        </div>
+                        <div>
+                            <button>Log In</button>
+                        </div>
+                    </form>
+                    {{ error }}
+                    <p>Forgot Password? <a href="forgotpassword">Click here</a></p>
+                    <p>Not a member? Sign up <a href="signup">here</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>

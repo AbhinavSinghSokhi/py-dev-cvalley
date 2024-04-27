@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    Good Morning ! {{ user_details.username }}
+    <div>
+        <form action="new_task" method="post">
+            {% csrf_token %}
+            <h1>Task:</h1>
+            <div>
+                <input type="text" name="task_title" id="takstitle" placeholder="Title">
+            </div>
+            <div>
+                <textarea name="task_desc" id="taskdesc" cols="30" rows="10" placeholder="Description"></textarea>
+            </div>
+            <div>
+                <label for="">Category: </label>
+                <select name="list" id="list">
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                    <option value="home">Home</option>
+                </select>
+            </div>
+            <div>
+                <label for="">Due Date: </label>
+                <input type="date" name="due_date" id="duedate">
+            </div>
+            <div>
+                <button>Save Task</button>
+            </div>
+        </form>
+    </div>
+
+    <a href="logout"><button>logout</button></a>
+</body>
+</html>
