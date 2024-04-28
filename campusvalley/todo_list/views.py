@@ -49,8 +49,17 @@ def new_task(request):
         user= request.user
         user_name= User.objects.get(username= user.username)
         task= Task.objects.create(user= user_name, title=task_title, description=task_desc, category=task_category, dueDate=task_due_date )
-        return render(request, "dashboard.html",{'user_details': request.user} )
+        # return render(request, "dashboard.html",{'user_details': request.user} )
+        return redirect(dashboard)
     else:
+        return redirect(dashboard)
+
+def delete_task(request):
+    if request.method=="POST":
+        taskId= request.POST.get("task_id")
+        # print(taskId)
+        object_to_del= Task.objects.get(task_id=taskId)
+        object_to_del.delete()
         return redirect(dashboard)
 
 

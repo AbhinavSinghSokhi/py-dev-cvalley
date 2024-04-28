@@ -8,5 +8,6 @@ urlpatterns=[
     path("signupform", views.signupForm, name="signupform"),
     path("dashboard", views.dashboard, name="dashboard"),
     path("new_task", views.new_task, name="new_task"),
-    path("logout", views.logout_user, name="logout")
+    path("logout", views.logout_user, name="logout"),
+    path("delete_task", views.delete_task, name="delete_task")
 ]

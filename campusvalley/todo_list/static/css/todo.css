@@ -196,3 +196,22 @@ body {
         border-color: azure;
 }
 }
+
+/* dashboard styles */
+
+.container{
+    display: flex;
+}
+
+.sidebar-section {
+    flex: 2;
+}
+
+.task_list_section {
+    flex: 3;
+}
+
+
+.new_task_form_section {
+    flex: 2;
+}

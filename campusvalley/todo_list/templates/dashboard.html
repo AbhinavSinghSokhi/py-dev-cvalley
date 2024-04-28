@@ -6,49 +6,66 @@
     <title>Dashboard</title>
 </head>
 <body>
-    Good Morning ! {{ user_details.username }}
-    <div>
-        <form action="new_task" method="post">
-            {% csrf_token %}
-            <h1>Task:</h1>
+    <div class="container">
+        Good Morning ! {{ user_details.username }}
+        <div class="sidebar-section">
+            <a href="logout"><button>logout</button></a>
+
+        </div>
+
+        <div class="task_list_section">
+            <h1>Tasks list</h1>
+            {% if tasks  %}
+            {% for task in tasks %}
+
             <div>
-                <input type="text" name="task_title" id="takstitle" placeholder="Title">
+                <hr>
+                <p>task id: {{ task.task_id }}</p>
+                <h2 class="title">Title: {{ task.title }}</h2>
+                <p class="description">Description : {{ task.description }}</p>
+                <p class="category">Category: {{ task.category }}</p>
+                <p class="due_date">Due Date: {{ task.dueDate }}</p>
+                <form action="delete_task" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <input type="hidden" name="task_id"  value={{task.task_id}} id="">
+                        <button>Delete task</button>
+                    </div>
+                </form>
             </div>
-            <div>
-                <textarea name="task_desc" id="taskdesc" cols="30" rows="10" placeholder="Description"></textarea>
-            </div>
-            <div>
-                <label for="">Category: </label>
-                <select name="list" id="list">
-                    <option value="work">Work</option>
-                    <option value="personal">Personal</option>
-                    <option value="home">Home</option>
-                </select>
-            </div>
-            <div>
-                <label for="">Due Date: </label>
-                <input type="date" name="due_date" id="duedate">
-            </div>
-            <div>
-                <button>Save Task</button>
-            </div>
-        </form>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- to appear when add task is clicked -->
+        <div class="new_task_form_section">
+            <form action="new_task" method="post">
+                {% csrf_token %}
+                <h1>Task:</h1>
+                <div>
+                    <input type="text" name="task_title" id="takstitle" placeholder="Title">
+                </div>
+                <div>
+                    <textarea name="task_desc" id="taskdesc" cols="30" rows="10" placeholder="Description"></textarea>
+                </div>
+                <div>
+                    <label for="">Category: </label>
+                    <select name="list" id="list">
+                        <option value="work">Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="home">Home</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="">Due Date: </label>
+                    <input type="date" name="due_date" id="duedate">
+                </div>
+                <div>
+                    <button>Save Task</button>
+                </div>
+            </form>
+        </div>
+
     </div>
-
-    <a href="logout"><button>logout</button></a>
-
-
-    <h1>Tasks list</h1>
-    {% if tasks  %}
-    {% for task in tasks %}
-
-    <div>
-        <h2 class="title">Title: {{ task.title }}</h2>
-        <p class="description">Description : {{ task.description }}</p>
-        <p class="category">Category: {{ task.category }}</p>
-        <p class="due_date">Due Date: {{ task.dueDate }}</p>
-    </div>
-    {% endfor %}
-    {% endif %}
 </body>
 </html>
