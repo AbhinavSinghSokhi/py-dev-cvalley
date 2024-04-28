@@ -34,7 +34,7 @@ def signupForm(request):
 
 def dashboard(request):
     user_tasks= Task.objects.filter(user=request.user)
-    print(user_tasks)
+    # print(user_tasks)
     return render(request, "dashboard.html", {'user_details': request.user ,"tasks": user_tasks})
 
 

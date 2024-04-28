@@ -4,41 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}">
 </head>
 <body>
-    <div class="container">
-        Good Morning ! {{ user_details.username }}
+    <div class="dashboard">
         <div class="sidebar-section">
-            <a href="logout"><button>logout</button></a>
-
+            <div class="home-options">
+                <h1>Home</h1>
+                <h4>Tasks</h4>
+                <ul>
+                    <li>Today</li>
+                    <li>Upcoming</li>
+                    <li>Completed</li>
+                </ul>
+                <h4>Lists</h4>
+                <li>Personal</li>
+                <li>Work</li>
+                <li>Home</li>
+            </div>
+            <div class="signout-profile">
+                <a href="user_profile"><h3>Profile</h3></a>
+                <a href="logout"><button>logout</button></a>
+            </div>
         </div>
 
-        <div class="task_list_section">
+        <div class="task-list-section">
+            Good Morning ! {{ user_details.username }}
             <h1>Tasks list</h1>
+            <div>
+                <!-- this button will open the form from right side -->
+                <button>
+                    Add new task
+                </button>
+            </div>
             {% if tasks  %}
             {% for task in tasks %}
 
             <div>
-                <hr>
-                <p>task id: {{ task.task_id }}</p>
-                <h2 class="title">Title: {{ task.title }}</h2>
-                <p class="description">Description : {{ task.description }}</p>
-                <p class="category">Category: {{ task.category }}</p>
-                <p class="due_date">Due Date: {{ task.dueDate }}</p>
-                <form action="delete_task" method="post">
-                    {% csrf_token %}
-                    <div>
-                        <input type="hidden" name="task_id"  value={{task.task_id}} id="">
-                        <button>Delete task</button>
+                <!-- <h4>task id: {{ task.task_id }}</h4> -->
+                <div class="title-bin-container">
+                    <h3 class="title">{{ task.title }}</h3>
+                    <form action="delete_task" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <input type="hidden" name="task_id"  value={{task.task_id}} id="">
+                            <button><img src="" alt="bin"></button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <p class="description">{{ task.description }}</p>
+                </div>
+                <div class="category-duedate-container">
+                    <div class="category-container">
+                        <div class="category-personal-label"></div>
+                        <p class="category">{{ task.category }}</p>
                     </div>
-                </form>
+                    <div class="due-date-container">
+                        <img src="" alt="cal-icon">
+                        <p class="due_date">{{ task.dueDate }}</p>
+                    </div>
+                </div>
             </div>
             {% endfor %}
+            {% else %}
+            <!-- display no tasks for today-->
+            <div>
+                <p>No tasks</p>
+            </div>
             {% endif %}
         </div>
 
         <!-- to appear when add task is clicked -->
-        <div class="new_task_form_section">
+        <div class="new-task-form-section">
             <form action="new_task" method="post">
                 {% csrf_token %}
                 <h1>Task:</h1>

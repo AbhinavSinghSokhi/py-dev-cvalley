@@ -1,0 +1,84 @@
+body{
+    background-color: rgb(250, 250, 250);
+    margin: 0%;
+}
+
+.dashboard{
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar-section {
+    flex: 2;
+    background-color: rgb(240, 240, 240);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    div{
+        width: 100%;
+    }
+}
+
+.task-list-section {
+    flex: 4;
+    padding: 1.5rem;
+}
+
+.new-task-form-section {
+    flex: 3;
+    background-color: rgb(240, 240, 240);
+    padding: 1.5rem;
+}
+
+.category-duedate-container {
+    display: flex;
+}
+
+.category-personal-label {
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    display: inline-block;
+}
+
+.category-work-label {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    display: inline-block;
+}
+
+.category-home-label {
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    display: inline-block;
+}
+
+.title-bin-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.due-date-container {
+    flex:1;
+    display: flex;
+    img{
+
+    }
+    p{
+
+    }
+}
+
+.category-container{
+    flex:1;
+    div{
+        display: inline-block; 
+     }
+     p{
+         display: inline-block;
+     }
+}
