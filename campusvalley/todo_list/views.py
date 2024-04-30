@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import User, Task
 from django.contrib.auth import authenticate, login, logout
+import json
 # Create your views here.
 def index(request):
     return render(request, "index.html")
@@ -33,7 +34,9 @@ def signupForm(request):
         return render(request, "signup.html")
 
 def dashboard(request):
-    user_tasks= Task.objects.filter(user=request.user)
+    # applying two filter here only rather than deleting the task from the database, task will stay saved only it's status will be changed on clicking check box and then it will redirect to the dahbaord where i only want to display those value whose completionStatus is False.
+    user_tasks= Task.objects.filter(user=request.user, completionStatus= False)
+
     # print(user_tasks)
     return render(request, "dashboard.html", {'user_details': request.user ,"tasks": user_tasks})
 
@@ -62,6 +65,18 @@ def delete_task(request):
         object_to_del.delete()
         return redirect(dashboard)
 
+def mark_completed (request):
+    if request.method=="POST":
+        data= json.loads(request.body)
+        taskId= data.get('task_id')
+        isCompleted =  data.get('is_completed')
+        # print("task_id: ",taskId, isCompleted)
+        statusChange = Task.objects.get(task_id= taskId)
+        statusChange.completionStatus= isCompleted
+        statusChange.save()
+        return redirect(dashboard)
+    else:
+        return  redirect(dashboard)
 
 def logout_user(request):
     logout(request)

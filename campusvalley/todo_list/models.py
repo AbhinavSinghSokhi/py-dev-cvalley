@@ -9,6 +9,7 @@ class Task(models.Model):
     description= models.TextField(max_length=1000)
     category= models.CharField(max_length=20)
     dueDate= models.DateTimeField()
+    completionStatus= models.BooleanField(default= False)
 
     def __str__(self):
         return f"Tasks of {self.user.username}"

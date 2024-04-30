@@ -40,30 +40,43 @@
             </div>
             {% if tasks  %}
             {% for task in tasks %}
-
-            <div>
+            <div class="task-container">
                 <!-- <h4>task id: {{ task.task_id }}</h4> -->
-                <div class="title-bin-container">
-                    <h3 class="title">{{ task.title }}</h3>
-                    <form action="delete_task" method="post">
-                        {% csrf_token %}
-                        <div>
-                            <input type="hidden" name="task_id"  value={{task.task_id}} id="">
-                            <button><img src="" alt="bin"></button>
-                        </div>
-                    </form>
-                </div>
-                <div>
-                    <p class="description">{{ task.description }}</p>
-                </div>
-                <div class="category-duedate-container">
-                    <div class="category-container">
-                        <div class="category-personal-label"></div>
-                        <p class="category">{{ task.category }}</p>
+                <div class="task-checkbox">
+                    <div class="completion-button">
+                        <form action="">
+                            {% csrf_token %}
+                            <input type="checkbox" name="" id="isCompleted">
+                            <input type="hidden" name="task_id" id="taskId" value={{task.task_id}}>
+                        </form>
                     </div>
-                    <div class="due-date-container">
-                        <img src="" alt="cal-icon">
-                        <p class="due_date">{{ task.dueDate }}</p>
+                </div>
+                <div class="task-details">
+                    <div class="title-bin-container">
+                        <div class="title">{{ task.title }}</div>
+                    </div>
+                    <div>
+                        <p class="description">{{ task.description }}</p>
+                    </div>
+                    <div class="category-duedate-container">
+                        <div class="category-container">
+                            <div class="category-personal-label"></div>
+                            <p class="category">{{ task.category }}</p>
+                        </div>
+                        <div class="due-date-container">
+                            <!-- <img src="" alt="cal-icon"> -->
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <p class="due_date">{{ task.dueDate }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <form action="delete_task" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <input type="hidden" name="task_id"  value={{task.task_id}} id="">
+                                <button><img src="" alt="bin"></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -106,5 +119,47 @@
         </div>
 
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var checkbox = document.getElementById('isCompleted');
+            checkbox.addEventListener('change', function () {
+                var isChecked = checkbox.checked;
+                var taskId = document.getElementById('taskId').value;
+
+                var csrftoken = getCookie('csrftoken');
+
+                // Send POST request to update the field
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'mark_completed', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRFToken', csrftoken);  // Include CSRF token in request headers
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // Handle success if needed
+                        window.location.reload();
+                    } else {
+                        // Handle error if needed
+                    }
+                };
+                console.log("task id: "+ taskId)
+                xhr.send(JSON.stringify({ task_id: taskId, is_completed: isChecked }));
+            });
+        });
+
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
 </body>
 </html>
