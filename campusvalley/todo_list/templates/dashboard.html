@@ -18,7 +18,7 @@
         <div class="sidebar-section">
             <div class="home-options">
                 <div id="menu">Menu</div>
-                <h4>Tasks</h4>
+                <div id="tasks-heading">Tasks</div>
                     <li class="tasks-item">
                         <div class="task-item-icon">
                             <i class="fa-solid fa-table-list"></i>
@@ -37,14 +37,41 @@
                         <div  class="task-item-icon"><i class="fa-solid fa-square-check "></i></div>
                         <div class="task-item-text">Completed</div>
                     </li>
-                <h4>Lists</h4>
-                <li class="lists-item">Personal</li>
-                <li class="lists-item">Work</li>
-                <li class="lists-item">Home</li>
+                <div id="list-heading">Lists</div>
+                <li class="lists-item">
+                    <div class="list-item-red">
+                        <div class="redbox"></div>
+                    </div>
+                    <div class="list-item-text">
+                        Personal
+                    </div>
+                </li>
+                <li class="lists-item">
+                    <div class="list-item-yellow">
+                        <div class="yellowbox"></div>
+                    </div>
+                    <div class="list-item-text">Work</div>
+                </li>
+                <li class="lists-item">
+                    <div class="list-item-blue">
+                        <div class="bluebox"></div>
+                    </div>
+                    <div class="list-item-text">Home</div>
+                </li>
             </div>
             <div class="signout-profile">
-                <a href="user_profile"><h3><i class="fa-solid fa-user"></i>Profile</h3></a>
-                <a href="logout"><button><i class="fa-solid fa-right-from-bracket"></i>logout</button></a>
+                <a href="user_profile">
+                    <div id="profile-div">
+                        <div id="profile-icon"><i class="fa-solid fa-user"></i></div>
+                        <div id="profile-text">Profile</div>
+                    </div>
+                </a>
+                <a href="logout">
+                    <div id="logout-div">
+                        <div id="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+                        <div id="logout-text">Sign out</div>
+                    </div>
+                </a>
             </div>
         </div>
 
