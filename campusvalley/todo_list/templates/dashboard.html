@@ -76,14 +76,21 @@
         </div>
 
         <div class="task-list-section">
-            Good Morning ! {{ user_details.username }}
-            <h1>Tasks list</h1>
+            Good Morning ! {{ user_details.username }} to be shifted to sidebar
+            <div>
+                <div>Today</div>
+                <div>count</div>
+            </div>
             <div>
                 <!-- this button will open the form from right side -->
-                <button>
-                    <i class="fa-solid fa-plus"></i>
-                    Add new task
-                </button>
+                <div>
+                    <div>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div>
+                        Add new task
+                    </div>
+                </div>
             </div>
             {% if tasks  %}
             {% for task in tasks %}
@@ -99,31 +106,47 @@
                     </div>
                 </div>
                 <div class="task-details">
-                    <div class="title-bin-container">
-                        <div class="title">{{ task.title }}</div>
+                    <div class="title-arrow-container">
+                        <div class="task-title">{{ task.title }}</div>
+                        <!-- <div>{{ task.dueDate }}</div> -->
+                        <div><i class="fa-solid fa-chevron-right"></i></div>
                     </div>
                     <div>
-                        <p class="description">{{ task.description }}</p>
+                        <div class="description">{{ task.description }}</div>
                     </div>
-                    <div class="category-duedate-container">
-                        <div class="category-container">
-                            <div class="category-personal-label"></div>
-                            <p class="category">{{ task.category }}</p>
-                        </div>
-                        <div class="due-date-container">
-                            <!-- <img src="" alt="cal-icon"> -->
-                            <i class="fa-regular fa-calendar-xmark"></i>
-                            <p class="due_date">{{ task.dueDate }}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <form action="delete_task" method="post">
-                            {% csrf_token %}
-                            <div>
-                                <input type="hidden" name="task_id"  value={{task.task_id}} id="">
-                                <button><i class="fa-solid fa-trash"></i></button>
+                    <div class="task-subdetails-container">
+                        <div class="category-duedate-container">
+                            <div class="category-container">
+                                {% if task.category == "personal" %}
+                                    <div class="redbox"></div>
+                                {% elif task.category == "home" %}
+                                    <div class="bluebox"></div>
+                                {% elif task.category == "work" %}
+                                    <div class="yellowbox"></div>
+                                {% endif %}
+                                <div class="category">{{ task.category }}</div>
                             </div>
-                        </form>
+                            <div class="due-date-container">
+                                <div>
+                                    <i class="fa-regular fa-calendar-xmark"></i>
+                                </div>
+                                <div class="due_date">{{ task.dueDate }}</div>
+                            </div>
+                        </div>
+                        <div id="task-edit-del-container">
+                            <div class="task-edit-container">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <div class="task-del-container">
+                                <form action="delete_task" method="post">
+                                    {% csrf_token %}
+                                    <div>
+                                        <input type="hidden" name="task_id"  value={{task.task_id}} id="">
+                                        <button><i class="fa-solid fa-trash"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

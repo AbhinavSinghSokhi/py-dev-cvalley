@@ -195,6 +195,8 @@ a{
 }
 
 
+/* tasks list styles */
+
 .task-list-section {
     flex: 5;
     padding: 1.5rem;
@@ -213,13 +215,39 @@ a{
     -o-border-radius: 15px;
 }
 
+
+.title-arrow-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-title{
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
 .task-checkbox{
-    /* flex: 1; */
-    /* margin: auto; */
+    div{
+        form{
+            margin: 3px 0px;
+            padding: 0px;
+            font-size: 0px;
+            input{
+                /* padding: 0px; */
+                /* margin: 0px; */
+            }
+        }
     display: flex;
     justify-content: center;
     align-items: start;
+    }
 }
+
+.description {
+    margin-bottom: 0.5rem;
+}
+
 .task-details{
     /* flex: 12; */
     width: 100%;
@@ -231,52 +259,93 @@ a{
     padding: 1.5rem;
 }
 
-.category-duedate-container {
-    display: flex;
-}
-
-.category-personal-label {
-    width: 10px;
-    height: 10px;
-    background-color: green;
-    display: inline-block;
-}
-
-.category-work-label {
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    display: inline-block;
-}
-
-.category-home-label {
-    width: 10px;
-    height: 10px;
-    background-color: blue;
-    display: inline-block;
-}
-
-.title-bin-container {
+.task-subdetails-container {
     display: flex;
     justify-content: space-between;
 }
 
-
-.due-date-container {
-    flex:1;
+.category-duedate-container {
     display: flex;
-    img{
+    gap: 2rem;
+}
 
+.category-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.due-date-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:0.5rem;
+}
+
+.due_date {
+    text-wrap:nowrap;
+}
+
+
+#task-edit-del-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.task-edit-container{
+    i{
+        color:rgb(28, 154, 28);
+        transition: transform 0.1s ease-in-out;
+        -webkit-transition: transform 0.1s ease-in-out;
+        -moz-transition: transform 0.1s ease-in-out;
+        -ms-transition: transform 0.1s ease-in-out;
+        -o-transition: transform 0.1s ease-in-out;
+}
+    i:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        -o-transform: scale(1.1);
     }
-    p{
 
+}
+
+.task-del-container {
+    form{
+        div{
+            button{
+                border:none;
+                color: red;
+                i{
+                    transition: transform 0.1s ease-in-out;
+                    -webkit-transition: transform 0.1s ease-in-out;
+                    -moz-transition: transform 0.1s ease-in-out;
+                    -ms-transition: transform 0.1s ease-in-out;
+                    -o-transition: transform 0.1s ease-in-out;
+}
+                i:hover {
+                    cursor:pointer;
+                    transform: scale(1.2);
+                    -webkit-transform: scale(1.2);
+                    -moz-transform: scale(1.2);
+                    -ms-transform: scale(1.2);
+                    -o-transform: scale(1.2);
+}
+            }
+        }
     }
 }
+
 
 .category-container{
     flex:1;
     div{
-        display: inline-block; 
+        display: inline-block;
      }
      p{
          display: inline-block;
