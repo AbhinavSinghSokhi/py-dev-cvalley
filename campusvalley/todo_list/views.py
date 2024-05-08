@@ -38,7 +38,7 @@ def dashboard(request):
     user_tasks= Task.objects.filter(user=request.user, completionStatus= False)
 
     # print(user_tasks)
-    return render(request, "dashboard.html", {'user_details': request.user ,"tasks": user_tasks})
+    return render(request, "dashboard.html", {'user_details': request.user ,"tasks": user_tasks, "num_of_tasks": len(user_tasks)})
 
 
 def new_task(request):

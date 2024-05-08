@@ -17,7 +17,9 @@
     <div class="dashboard">
         <div class="sidebar-section">
             <div class="home-options">
-                <div id="menu">Menu</div>
+                <div id="menu">
+                    Good Morning ! {{ user_details.username }}
+                </div>
                 <div id="tasks-heading">Tasks</div>
                     <li class="tasks-item">
                         <div class="task-item-icon">
@@ -76,20 +78,17 @@
         </div>
 
         <div class="task-list-section">
-            Good Morning ! {{ user_details.username }} to be shifted to sidebar
-            <div>
-                <div>Today</div>
-                <div>count</div>
+            <div class="tasks-heading-container">
+                <div class="today-upcoming-completed-heading">Today</div>
+                <div class="tasks-count"><span class="task-count-divider">l</span>{{ num_of_tasks }}<span class="task-count-divider">l</span></div>
             </div>
-            <div>
+            <div class="add-task-btn-container">
                 <!-- this button will open the form from right side -->
-                <div>
-                    <div>
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <div>
-                        Add new task
-                    </div>
+                <div class="plus">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="add-task-text" id="addNewTask">
+                    Add New Task
                 </div>
             </div>
             {% if tasks  %}
@@ -160,33 +159,33 @@
         </div>
 
         <!-- to appear when add task is clicked -->
-        <div class="new-task-form-section">
-            <form action="new_task" method="post">
+        <div class="new-task-form-section" id="newTaskFormSection">
+            <div class="taskFormTitle">Task:</div>
+            <form action="new_task" method="post" id="addTaskForm">
                 {% csrf_token %}
-                <h1>Task:</h1>
-                <div>
-                    <input type="text" name="task_title" id="takstitle" placeholder="Title">
+                <div class="form-fields">
+                    <input type="text" name="task_title" id="tasktitle" placeholder="Title">
                 </div>
-                <div>
+                <div class="form-fields">
                     <textarea name="task_desc" id="taskdesc" cols="30" rows="10" placeholder="Description"></textarea>
                 </div>
-                <div>
-                    <i class="fa-solid fa-layer-group"></i>
-
-                    <label for="">Category: </label>
+                <div class="form-fields" id="formCategories">
+                    <!-- <i class="fa-solid fa-layer-group"></i> -->
+                    <label for="">Category</label>
                     <select name="list" id="list">
                         <option value="work">Work</option>
                         <option value="personal">Personal</option>
                         <option value="home">Home</option>
                     </select>
                 </div>
-                <div>
-                    <i class="fa-solid fa-calendar-plus"></i>
-                    <label for="">Due Date: </label>
+                <div class="form-fields" id="formDueDate">
+                    <!-- <i class="fa-solid fa-calendar-plus"></i> -->
+                    <label for="">Due Date</label>
                     <input type="date" name="due_date" id="duedate">
                 </div>
-                <div>
-                    <button>Save Task</button>
+                <div class="form-fields" id="btn-container">
+                    <button type="button" id="clear-btn">Clear</button>
+                    <button type="submit" id="save-task-btn">Save Task</button>
                 </div>
             </form>
         </div>
@@ -194,6 +193,13 @@
     </div>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
     <script>
+
+    document.getElementById('clear-btn').addEventListener('click',function (){
+        console.log("Button Clicked")
+        document.getElementById("addTaskForm").reset();
+    });
+
+
         document.addEventListener('DOMContentLoaded', function () {
             var checkbox = document.getElementById('isCompleted');
             checkbox.addEventListener('change', function () {
@@ -234,6 +240,22 @@
         }
         return cookieValue;
     }
-    </script>
+
+    document.getElementById("addNewTask").onclick= function() {
+    var formContainer = document.getElementById("newTaskFormSection");
+    formContainer.style.display = "block";
+    };
+
+    document.getElementById("addTaskForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form submission
+    var formContainer = document.getElementById("newTaskFormSection");
+    formContainer.style.display = "none"; // Hide the form
+    // Handle form submission logic here
+    event.target.submit();
+    console.log("Form submitted!");
+});
+
+
+</script>
 </body>
 </html>
