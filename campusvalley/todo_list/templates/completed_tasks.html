@@ -22,7 +22,7 @@
                 </div>
                 <div id="tasks-heading">Tasks</div>
                     <a href="dashboard">
-                        <li class="tasks-item active">
+                        <li class="tasks-item ">
                             <div class="task-item-icon">
                                 <i class="fa-solid fa-table-list"></i>
                             </div>
@@ -42,7 +42,7 @@
                         </li>
                     </a>
                     <a href="completed_tasks">
-                        <li class="tasks-item">
+                        <li class="tasks-item active">
                             <div  class="task-item-icon"><i class="fa-solid fa-square-check "></i></div>
                             <div class="task-item-text">Completed</div>
                             <div class="task-item-count">{{completed_tasks_count}}</div>
@@ -97,7 +97,7 @@
 
         <div class="task-list-section">
             <div class="tasks-heading-container">
-                <div class="today-upcoming-completed-heading">Today</div>
+                <div class="today-upcoming-completed-heading">Completed</div>
                 <div class="tasks-count"><span class="task-count-divider">l</span>{{ num_of_tasks }}<span class="task-count-divider">l</span></div>
             </div>
             <div class="add-task-btn-container">
@@ -113,15 +113,15 @@
             {% for task in tasks %}
             <div class="task-container">
                 <!-- <h4>task id: {{ task.task_id }}</h4> -->
-                <div class="task-checkbox">
+                <!-- <div class="task-checkbox">
                     <div class="completion-button">
                         <form action="">
                             {% csrf_token %}
-                            <input type="checkbox" name="" class="isCompleted" data-task-id={{task.task_id}}>
-                            <input type="hidden" name="task_id" class="taskId" >
+                            <input type="checkbox" name="" id="isCompleted">
+                            <input type="hidden" name="task_id" id="taskId" value={{task.task_id}}>
                         </form>
                     </div>
-                </div>
+                </div> -->
                 <div class="task-details">
                     <div class="title-arrow-container">
                         <div class="task-title">{{ task.title }}</div>
@@ -151,9 +151,9 @@
                             </div>
                         </div>
                         <div id="task-edit-del-container">
-                            <div class="task-edit-container">
+                            <!-- <div class="task-edit-container">
                                 <i class="fa-solid fa-pen-to-square"></i>
-                            </div>
+                            </div> -->
                             <div class="task-del-container">
                                 <form action="delete_task" method="post">
                                     {% csrf_token %}
@@ -176,108 +176,6 @@
             </div>
             {% endif %}
         </div>
-
-        <!-- to appear when add task is clicked -->
-        <div class="new-task-form-section" id="newTaskFormSection">
-            <div class="taskFormTitle">Task:</div>
-            <form action="new_task" method="post" id="addTaskForm">
-                {% csrf_token %}
-                <div class="form-fields">
-                    <input type="text" name="task_title" id="tasktitle" placeholder="Title">
-                </div>
-                <div class="form-fields">
-                    <textarea name="task_desc" id="taskdesc" cols="30" rows="10" placeholder="Description"></textarea>
-                </div>
-                <div class="form-fields" id="formCategories">
-                    <!-- <i class="fa-solid fa-layer-group"></i> -->
-                    <label for="">Category</label>
-                    <select name="list" id="list">
-                        <option value="work">Work</option>
-                        <option value="personal">Personal</option>
-                        <option value="home">Home</option>
-                    </select>
-                </div>
-                <div class="form-fields" id="formDueDate">
-                    <!-- <i class="fa-solid fa-calendar-plus"></i> -->
-                    <label for="">Due Date</label>
-                    <input type="date" name="due_date" id="duedate">
-                </div>
-                <div class="form-fields" id="btn-container">
-                    <button type="button" id="clear-btn">Clear</button>
-                    <button type="submit" id="save-task-btn">Save Task</button>
-                </div>
-            </form>
-        </div>
-
-    </div>
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
-    <script>
-
-    document.getElementById('clear-btn').addEventListener('click',function (){
-        console.log("Button Clicked")
-        document.getElementById("addTaskForm").reset();
-    });
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var checkbox = document.getElementsByClassName('isCompleted');
-            for (var i = 0; i < checkbox.length; i++) {
-
-                checkbox[i].addEventListener('change', function () {
-                    var isChecked = this.checked;
-                    var taskId = this.getAttribute('data-task-id');
-                    console.log(taskId)
-                    var csrftoken = getCookie('csrftoken');
-
-                    // Send POST request to update the field
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'mark_completed', true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.setRequestHeader('X-CSRFToken', csrftoken);  // Include CSRF token in request headers
-                    xhr.onload = function () {
-                        if (xhr.status === 200) {
-                            // Handle success if needed
-                            window.location.reload();
-                        } else {
-                            // Handle error if needed
-                        }
-                    };
-                    console.log("task id: "+ taskId)
-                    xhr.send(JSON.stringify({ task_id: taskId, is_completed: isChecked }));
-                });
-            }
-        });
-
-        function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    document.getElementById("addNewTask").onclick= function() {
-    var formContainer = document.getElementById("newTaskFormSection");
-    formContainer.style.display = "block";
-    };
-
-    document.getElementById("addTaskForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form submission
-    var formContainer = document.getElementById("newTaskFormSection");
-    formContainer.style.display = "none"; // Hide the form
-    // Handle form submission logic here
-    event.target.submit();
-    console.log("Form submitted!");
-});
-
-
-</script>
+</div>
 </body>
 </html>

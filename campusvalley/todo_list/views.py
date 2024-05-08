@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import User, Task
+from datetime import date
 from django.contrib.auth import authenticate, login, logout
 import json
 # Create your views here.
@@ -33,12 +34,38 @@ def signupForm(request):
     else:
         return render(request, "signup.html")
 
+
+def get_data(request, num):
+    all_tasks= [Task.objects.filter(user=request.user, completionStatus= False, dueDate= date.today()),
+                Task.objects.filter(user=request.user, completionStatus= False, dueDate__gt= date.today()).order_by('dueDate'),
+                Task.objects.filter(user=request.user, completionStatus= True),
+                Task.objects.filter(user=request.user, completionStatus= False, category="personal"),
+                Task.objects.filter(user=request.user, completionStatus= False, category="home"),
+                Task.objects.filter(user=request.user, completionStatus= False, category="work")
+                ]
+    # print("inside get coubt fnction")
+    return all_tasks[num]
+
 def dashboard(request):
     # applying two filter here only rather than deleting the task from the database, task will stay saved only it's status will be changed on clicking check box and then it will redirect to the dahbaord where i only want to display those value whose completionStatus is False.
-    user_tasks= Task.objects.filter(user=request.user, completionStatus= False)
+    today_user_tasks= get_data(request, 0)
+    # Task.objects.filter(user=request.user, completionStatus= False, dueDate= date.today())
+    upcoming_user_tasks= get_data(request, 1)
+    # Task.objects.filter(user=request.user, completionStatus= False, dueDate__gt= date.today())
+    completed_user_tasks=get_data(request, 2)
+    # Task.objects.filter(user=request.user, completionStatus= True)
+    personal_user_tasks= get_data(request,3)
+    # Task.objects.filter(user=request.user, completionStatus= False, category="personal")
+    home_user_tasks= get_data(request,4)
+    # Task.objects.filter(user=request.user, completionStatus= False, category="home")
+    work_user_tasks= get_data(request,5)
+    # Task.objects.filter(user=request.user, completionStatus= False, category="work")
+    # make dictionary or array of all these ,and access them seperately in all functions to make code simple and organized and reusbale
 
-    # print(user_tasks)
-    return render(request, "dashboard.html", {'user_details': request.user ,"tasks": user_tasks, "num_of_tasks": len(user_tasks)})
+    return render(request, "dashboard.html", {'user_details': request.user ,"tasks": today_user_tasks, "num_of_tasks": len(today_user_tasks),
+                                              'upcoming_tasks_count': len(upcoming_user_tasks),'completed_tasks_count':len(completed_user_tasks),
+                                               'personal_tasks_count':len(personal_user_tasks), 'home_tasks_count':len(home_user_tasks),
+                                                'work_tasks_count': len(work_user_tasks) })
 
 
 def new_task(request):
@@ -63,7 +90,10 @@ def delete_task(request):
         # print(taskId)
         object_to_del= Task.objects.get(task_id=taskId)
         object_to_del.delete()
-        return redirect(dashboard)
+
+        referring_url= request.META.get("HTTP_REFERER")
+        print(referring_url)
+        return redirect(referring_url)
 
 def mark_completed (request):
     if request.method=="POST":
@@ -81,3 +111,66 @@ def mark_completed (request):
 def logout_user(request):
     logout(request)
     return redirect(index)
+
+
+def upcoming_tasks(request):
+    today_user_tasks= get_data(request, 0)
+    upcoming_user_tasks= get_data(request, 1)
+    completed_user_tasks=get_data(request, 2)
+    personal_user_tasks= get_data(request,3)
+    home_user_tasks= get_data(request,4)
+    work_user_tasks= get_data(request,5)
+    return render(request, "upcoming_tasks.html",{'user_details': request.user ,"tasks": upcoming_user_tasks, "num_of_tasks": len(today_user_tasks),
+                                              'upcoming_tasks_count': len(upcoming_user_tasks),'completed_tasks_count':len(completed_user_tasks),
+                                               'personal_tasks_count':len(personal_user_tasks), 'home_tasks_count':len(home_user_tasks),
+                                                'work_tasks_count': len(work_user_tasks)})
+
+def completed_tasks(request):
+    today_user_tasks= get_data(request, 0)
+    upcoming_user_tasks= get_data(request, 1)
+    completed_user_tasks=get_data(request, 2)
+    personal_user_tasks= get_data(request,3)
+    home_user_tasks= get_data(request,4)
+    work_user_tasks= get_data(request,5)
+    return render(request, "completed_tasks.html",{'user_details': request.user ,"tasks": completed_user_tasks,"num_of_tasks": len(today_user_tasks),
+                                              'upcoming_tasks_count': len(upcoming_user_tasks),'completed_tasks_count':len(completed_user_tasks),
+                                               'personal_tasks_count':len(personal_user_tasks), 'home_tasks_count':len(home_user_tasks),
+                                                'work_tasks_count': len(work_user_tasks)} )
+
+def personal_tasks(request):
+    today_user_tasks= get_data(request, 0)
+    upcoming_user_tasks= get_data(request, 1)
+    completed_user_tasks=get_data(request, 2)
+    personal_user_tasks= get_data(request,3)
+    home_user_tasks= get_data(request,4)
+    work_user_tasks= get_data(request,5)
+    return render(request, "personal_tasks.html", {'user_details': request.user ,"tasks": personal_user_tasks, "num_of_tasks": len(today_user_tasks),
+                                              'upcoming_tasks_count': len(upcoming_user_tasks),'completed_tasks_count':len(completed_user_tasks),
+                                               'personal_tasks_count':len(personal_user_tasks), 'home_tasks_count':len(home_user_tasks),
+                                                'work_tasks_count': len(work_user_tasks)})
+
+def home_tasks(request):
+    today_user_tasks= get_data(request, 0)
+    upcoming_user_tasks= get_data(request, 1)
+    completed_user_tasks=get_data(request, 2)
+    personal_user_tasks= get_data(request,3)
+    home_user_tasks= get_data(request,4)
+    work_user_tasks= get_data(request,5)
+
+    return render(request, "home_tasks.html", {'user_details': request.user ,"tasks": home_user_tasks, "num_of_tasks": len(today_user_tasks),
+                                              'upcoming_tasks_count': len(upcoming_user_tasks),'completed_tasks_count':len(completed_user_tasks),
+                                               'personal_tasks_count':len(personal_user_tasks), 'home_tasks_count':len(home_user_tasks),
+                                                'work_tasks_count': len(work_user_tasks)})
+
+def work_tasks(request):
+    today_user_tasks= get_data(request, 0)
+    upcoming_user_tasks= get_data(request, 1)
+    completed_user_tasks=get_data(request, 2)
+    personal_user_tasks= get_data(request,3)
+    home_user_tasks= get_data(request,4)
+    work_user_tasks= get_data(request,5)
+
+    return render(request, "work_tasks.html", {'user_details': request.user ,"tasks": work_user_tasks, "num_of_tasks": len(today_user_tasks),
+                                              'upcoming_tasks_count': len(upcoming_user_tasks),'completed_tasks_count':len(completed_user_tasks),
+                                               'personal_tasks_count':len(personal_user_tasks), 'home_tasks_count':len(home_user_tasks),
+                                                'work_tasks_count': len(work_user_tasks)})

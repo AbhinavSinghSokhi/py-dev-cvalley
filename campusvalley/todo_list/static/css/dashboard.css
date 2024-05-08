@@ -85,6 +85,15 @@ a{
     color:var(--black)
 }
 
+.active {
+    background-color: var(--primary-bg-color);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
 .task-item-icon{
     flex: 1;
     display: flex;
@@ -94,6 +103,13 @@ a{
 }
 .task-item-text{
     flex: 7;
+}
+
+.task-item-count{
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .lists-item{
@@ -197,6 +213,31 @@ a{
         flex:7;
         margin: auto 0px;
         font-weight: 550;
+    }
+}
+
+/* no task listed style */
+
+.no-task-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 60vh;
+
+    .no-task-heading{
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+        color: var(--secondary-text-color);
+        font-size: 1.6rem;
+
+    }
+    .no-task-image-container{
+        img{
+            height: 20rem;
+        }
     }
 }
 
