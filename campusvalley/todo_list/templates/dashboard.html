@@ -124,12 +124,12 @@
                 </div>
                 <div class="task-details">
                     <div class="title-arrow-container">
-                        <div class="task-title">{{ task.title }}</div>
+                        <div class="task-title" id="tasktitle">{{ task.title }}</div>
                         <!-- <div>{{ task.dueDate }}</div> -->
-                        <div><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="togglebutton"><i class="fa-solid fa-chevron-right rotate-right"></i></div>
                     </div>
                     <div>
-                        <div class="description">{{ task.description }}</div>
+                        <div class="description" id="taskdescription">{{ task.description }}</div>
                     </div>
                     <div class="task-subdetails-container">
                         <div class="category-duedate-container">
@@ -141,19 +141,19 @@
                                 {% elif task.category == "work" %}
                                     <div class="yellowbox"></div>
                                 {% endif %}
-                                <div class="category">{{ task.category }}</div>
+                                <div class="category" id="taskcategory">{{ task.category }}</div>
                             </div>
                             <div class="due-date-container">
                                 <div>
                                     <i class="fa-regular fa-calendar-xmark"></i>
                                 </div>
-                                <div class="due_date">{{ task.dueDate }}</div>
+                                <div class="due_date" id="taskduedate">{{ task.dueDate }}</div>
                             </div>
                         </div>
                         <div id="task-edit-del-container">
-                            <div class="task-edit-container">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </div>
+                            <!-- <div class="task-edit-container"> -->
+                                <!-- <button class="editbutton" id="editbutton"><i class="fa-solid fa-pen-to-square"></i></button> -->
+                            <!-- </div> -->
                             <div class="task-del-container">
                                 <form action="delete_task" method="post">
                                     {% csrf_token %}
@@ -183,15 +183,15 @@
             <form action="new_task" method="post" id="addTaskForm">
                 {% csrf_token %}
                 <div class="form-fields">
-                    <input type="text" name="task_title" id="tasktitle" placeholder="Title">
+                    <input type="text" name="task_title" id="tasktitleform" placeholder="Title" required>
                 </div>
                 <div class="form-fields">
-                    <textarea name="task_desc" id="taskdesc" cols="30" rows="10" placeholder="Description"></textarea>
+                    <textarea name="task_desc" id="taskdescform" cols="30" rows="10" placeholder="Description" required></textarea>
                 </div>
                 <div class="form-fields" id="formCategories">
                     <!-- <i class="fa-solid fa-layer-group"></i> -->
                     <label for="">Category</label>
-                    <select name="list" id="list">
+                    <select name="list" id="listform" required>
                         <option value="work">Work</option>
                         <option value="personal">Personal</option>
                         <option value="home">Home</option>
@@ -200,7 +200,7 @@
                 <div class="form-fields" id="formDueDate">
                     <!-- <i class="fa-solid fa-calendar-plus"></i> -->
                     <label for="">Due Date</label>
-                    <input type="date" name="due_date" id="duedate">
+                    <input type="date" name="due_date" id="duedateform" required value="">
                 </div>
                 <div class="form-fields" id="btn-container">
                     <button type="button" id="clear-btn">Clear</button>
@@ -211,7 +211,27 @@
 
     </div>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
-    <script>
+<script>
+    // Get all toggle buttons and collapsible divs
+    var toggleButtons = document.querySelectorAll(".togglebutton");
+
+    // Add event listeners to toggle buttons
+    toggleButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        var descriptionDiv = button.parentElement.nextElementSibling.querySelector(".description");
+
+        if (descriptionDiv.style.display === "none") {
+                // Open the description div
+                descriptionDiv.style.display = "block";
+                button.querySelector("i").classList.add("rotate-right");
+            } else {
+                // Close the description div
+                descriptionDiv.style.display = "none";
+                button.querySelector("i").classList.remove("rotate-right");
+            }
+    });
+    });
+
 
     document.getElementById('clear-btn').addEventListener('click',function (){
         console.log("Button Clicked")

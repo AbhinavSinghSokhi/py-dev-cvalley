@@ -126,7 +126,7 @@
                     <div class="title-arrow-container">
                         <div class="task-title">{{ task.title }}</div>
                         <!-- <div>{{ task.dueDate }}</div> -->
-                        <div><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="togglebutton"><i class="fa-solid fa-chevron-right rotate-right"></i></div>
                     </div>
                     <div>
                         <div class="description">{{ task.description }}</div>
@@ -178,6 +178,26 @@
         </div>
 </div>
 <script>
+        var toggleButtons = document.querySelectorAll(".togglebutton");
+
+// Add event listeners to toggle buttons
+toggleButtons.forEach(function(button) {
+button.addEventListener("click", function() {
+    var descriptionDiv = button.parentElement.nextElementSibling.querySelector(".description");
+
+    if (descriptionDiv.style.display === "none") {
+            // Open the description div
+            descriptionDiv.style.display = "block";
+            button.querySelector("i").classList.add("rotate-right");
+        } else {
+            // Close the description div
+            descriptionDiv.style.display = "none";
+            button.querySelector("i").classList.remove("rotate-right");
+        }
+});
+});
+
+
     document.addEventListener('DOMContentLoaded', function () {
             var checkbox = document.getElementsByClassName('isCompleted');
             for (var i = 0; i < checkbox.length; i++) {

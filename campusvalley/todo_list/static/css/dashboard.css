@@ -318,11 +318,17 @@ a{
     color: var(--darkest-text-color);
 }
 
+
 .task-title{
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
 }
+
+.rotate-right {
+    transform: rotate(90deg);
+}
+
 
 .task-checkbox{
     div{
@@ -463,7 +469,7 @@ a{
     margin: 1.5rem 0.5rem;
 }
 
-#tasktitle, #taskdesc{
+#tasktitleform, #taskdescform{
     background-color: var(--secondary-bg-color);
     border: none;
     font-size: 1rem;

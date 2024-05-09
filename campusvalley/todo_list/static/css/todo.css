@@ -1,7 +1,8 @@
 body {
     margin: 0%;
     padding: 0%;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
+    color: #545454;
 }
 
 .navbar {
@@ -120,14 +121,31 @@ body {
 }
 }
 
-.login-section , .forgPass-section{
-    background-image: url("https://unsplash.it/2000/2000");
-    padding: 6rem 10rem;
-    display: flex;
-    gap:8rem;
-    align-items: center;
-    justify-content: center;
 
+body{
+    background-image: url("/static/images/bg.jpg");
+    background-size: cover;
+}
+section{
+    padding: 5rem;
+    backdrop-filter: blur(10px);
+
+    .login-section , .forgPass-section{
+        /*background-image:;
+        url("https://unsplash.it/2000/2000");
+        */background-color: #fff;
+        padding: 6rem 10rem;
+        display: flex;
+        gap:8rem;
+        align-items: center;
+        justify-content: center;
+        height: 60vh;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+}
 }
 
 .login-text-sec, .forgPass-text-sec{
@@ -135,6 +153,9 @@ body {
     width: 20vw;
     height: 70vh;
     contain: content;
+    /* height:103vh; */
+    background-color: #F0F0F0;
+    /* overflow: visible; */
     backdrop-filter: blur(20px);
     border-radius: 30px;
     -webkit-border-radius: 30px;
@@ -144,13 +165,15 @@ body {
 }
 
 .login-text, .forgPass-text {
-    color: white;
+    color: #545454;
     margin: 5rem;
-    h1{
-        font-size: 4rem;
+    div{
+        font-size: 3rem;
+        font-weight: 600;
     }
     h5 {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 3.5rem;
     }
 }
 
@@ -174,13 +197,16 @@ body {
 
 .login-form , .forgPass-form{
     padding: 5rem;
+    h1{
+        font-size: 2rem;
+        font-weight: 650;
+    }
 
     input, button {
         width: 100%;
         height: 2rem;
         margin-bottom: 1rem;
         margin-top: 0.5rem;
-        padding: 0%;
         border-radius: 5px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
@@ -188,11 +214,22 @@ body {
         -o-border-radius: 5px;
     }
     input{
-        border-color: grey;
-        border-width: 0.5px;
+        border-color: #545454;
+        color: #545454;
+        border:none;
+        background-color: #F0F0F0;
+    }
+    input:focus {
+        /* padding-left: 2rem; */
+        outline: none;
     }
     button {
         border-width: 0.5px;
         border-color: azure;
-}
+        background-color: #545454;
+        color: #f0f0f0;
+    }
+    button:hover{
+        scale: 1.02;
+    }
 }
