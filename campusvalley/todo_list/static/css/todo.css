@@ -5,55 +5,19 @@ body {
     color: #545454;
 }
 
-.navbar {
-    display: flex;
-}
-.navbar-logo {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-}
-.navbar-links-div {
-    flex: 4;
-}
-
-.navbar-links-ul{
-    list-style: none;
-
-    button {
-        width: 5rem;
-        /* height: 2rem; */
-    }
-    li {
-        color: black;
-    }
-}
-.navbar-link {
-    float: right;
-    padding: 2%;
-    margin: 0rem 2rem;
-}
-
-.nav_button {
-    border-width: 0.5px;
-    border-color: azure;
-    border-radius: 5px;
-    height: 1.5rem;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-}
-
 .sign-up-section {
-    background-image: url("https://unsplash.it/2000/2000");
+    background-color: white;
     padding: 6rem 10rem;
+    height: 60vh;
     display: flex;
     gap:8rem;
     align-items: center;
     justify-content: center;
+    border-radius:30px ;
+    -webkit-border-radius:30px ;
+    -moz-border-radius:30px ;
+    -ms-border-radius:30px ;
+    -o-border-radius:30px ;
 }
 
 .sign-up-image-sec {
@@ -61,7 +25,8 @@ body {
     width: 20vw;
     height: 70vh;
     contain: content;
-    backdrop-filter: blur(20px);
+    background-color: #F0F0F0;
+    /* backdrop-filter: blur(20px); */
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
@@ -71,14 +36,20 @@ body {
 }
 
 .sign-up-intro {
-    color: white;
-    margin: 5rem;
-    h1{
-        font-size: 4rem;
+    color: #545454;
+    margin: 3rem 5rem;
+    div{
+        font-size: 3rem;
+        font-weight: 600;
+        line-height: 4rem;
     }
     h5 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
+}
+
+.image{
+    text-align: center;
 }
 
 .sign-up-form-sec {
@@ -112,15 +83,39 @@ body {
         -o-border-radius: 5px;
 }
     input{
-        border-color: grey;
-        border-width: 0.5px;
+        background-color: #F0F0F0;
+        border: none;
+        color: #545454;
     }
     button {
+        background-color: #545454;
+        color: #F0F0F0;
         border-width: 0.5px;
         border-color: azure;
-}
+    }
+
+    input:focus {
+        /* padding-left: 2rem; */
+        outline: none;
+    }
+    button:hover{
+        scale: 1.02;
+    }
 }
 
+#signup-password-container{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#pass-gen-text{
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+#signup-password{
+    margin-bottom: 0;
+}
 
 body{
     background-image: url("/static/images/bg.jpg");
@@ -168,7 +163,7 @@ section{
     color: #545454;
     margin: 5rem;
     div{
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: 600;
     }
     h5 {
@@ -219,17 +214,107 @@ section{
         border:none;
         background-color: #F0F0F0;
     }
-    input:focus {
-        /* padding-left: 2rem; */
-        outline: none;
-    }
     button {
         border-width: 0.5px;
         border-color: azure;
         background-color: #545454;
         color: #f0f0f0;
     }
+    input:focus {
+        /* padding-left: 2rem; */
+        outline: none;
+    }
     button:hover{
         scale: 1.02;
     }
+}
+
+
+#pass-gen-modal{
+    height: 30vh;
+    width: 30vw;
+    display: none;
+    position:absolute;
+    left: 33%;
+    top:33%;
+    background-color: #F0F0F0;
+    color: #545454;
+    padding: 2rem;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+#pass-gen-modal-heading{
+    text-align: center;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+#pass-gen-modal-subhead{
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 1rem 0rem;
+}
+
+#generate-btn-form{
+    padding: 1rem;
+    text-align: center;
+}
+
+#generate-btn {
+    height: 2rem;
+    width: 7rem;
+    background-color: #545454;
+    color: #F0F0F0;
+    border: none;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+#generate-btn:hover{
+    scale: 1.01;
+}
+
+#password-container{
+    /* margin-top: 1rem; */
+    background-color: white;
+    height: 2rem;
+    width: 12rem;
+    display: flex;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    #password{
+        flex:4;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #copy-btn{
+        flex:1;
+        color: #545454;
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+#pass-gen-btn:hover{
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#close-modal-btn {
+    text-align: right;
 }

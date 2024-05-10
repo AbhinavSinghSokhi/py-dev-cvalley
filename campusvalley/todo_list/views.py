@@ -1,13 +1,18 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import User, Task
+from django.http import JsonResponse
+
 from datetime import date
 from django.contrib.auth import authenticate, login, logout
 import json
+import random, string
+
 # Create your views here.
 def index(request):
     return render(request, "index.html")
 
 def signup(request):
+    # password= request.session.get("password"), { 'password':password}
     return render(request, "signup.html")
 
 def loginForm(request):
@@ -174,3 +179,17 @@ def work_tasks(request):
                                               'upcoming_tasks_count': len(upcoming_user_tasks),'completed_tasks_count':len(completed_user_tasks),
                                                'personal_tasks_count':len(personal_user_tasks), 'home_tasks_count':len(home_user_tasks),
                                                 'work_tasks_count': len(work_user_tasks)})
+
+
+
+def passwordgeneration (request):
+    if request.method == "POST":
+        pass_length= 10
+
+        password_char= string.ascii_letters + string.digits + string.punctuation
+        password = ''.join(random.choice(password_char) for _ in range(pass_length))
+
+        print(password)
+    # request.session['password']= password
+        return JsonResponse({'password':password})
+    # return redirect (signup)

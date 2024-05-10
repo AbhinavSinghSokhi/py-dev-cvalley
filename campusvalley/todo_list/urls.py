@@ -16,4 +16,5 @@ urlpatterns=[
     path("personal_tasks", views.personal_tasks, name="personal_tasks"),
     path("home_tasks", views.home_tasks, name="home_tasks"),
     path("work_tasks", views.work_tasks, name="work_tasks"),
+    path("generate-password", views.passwordgeneration, name="passwordgeneration"),
 ]
