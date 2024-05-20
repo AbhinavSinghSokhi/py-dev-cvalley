@@ -61,25 +61,26 @@
         </div>
     </section>
 
-    <div id="pass-gen-modal">
-        <div id="close-modal-btn"><i class="fa-solid fa-xmark" id="close"></i></div>
-        <div id="pass-gen-modal-heading">Password Generator</div>
-        <div id="pass-gen-modal-subhead">Click on Generate to generate a strong password</div>
-        <form action="generate-password" method="post" id="generate-btn-form">
-            {% csrf_token %}
-            <button id="generate-btn">Generate</button>
-        </form>
-        <center>
-            <div id="password-container">
-                <div id="password">
-                    <!-- {{ password }} -->
-                    password
+    <div id="modal-container">
+        <div id="pass-gen-modal">
+            <div id="close-modal-btn"><i class="fa-solid fa-xmark" id="close"></i></div>
+            <div id="pass-gen-modal-heading">Password Generator</div>
+            <div id="pass-gen-modal-subhead">Click on Generate to generate a strong password</div>
+            <form action="generate-password" method="post" id="generate-btn-form">
+                {% csrf_token %}
+                <button id="generate-btn">Generate</button>
+            </form>
+            <center>
+                <div id="password-container">
+                    <div id="password">
+                        password
+                    </div>
+                    <div id="copy-btn">
+                        <i class="fa-regular fa-copy"></i>
+                    </div>
                 </div>
-                <div id="copy-btn">
-                    <i class="fa-regular fa-copy"></i>
-                </div>
-            </div>
-        </center>
+            </center>
+        </div>
     </div>
 
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
@@ -88,19 +89,34 @@
     <script>
 
         document.getElementById('pass-gen-btn').addEventListener('click',function(){
-            document.getElementById('pass-gen-modal').style.display="block"
+            const modalContainer = document.getElementById('modal-container');
+            modalContainer.classList.add("visible");
+            modalContainer.onclick = closeModal
+            document.getElementById("pass-gen-modal").addEventListener('click', (e) => {
+                e.stopPropagation()
+            })
         })
 
 
-        document.getElementById('close').addEventListener('click', function(){
-            document.getElementById("pass-gen-modal").style.display= "none";
-            document.getElementById("password").innerHTML="password";
-        });
+        document.getElementById('close').addEventListener('click', closeModal);
 
+        function closeModal(){
+            document.getElementById("pass-gen-modal").animate([
+                { transform: 'translateY(0)' }, // from
+                { transform: 'translateY(60vh)' }      // to
+            ], {
+                duration: 200,  // 150ms
+                easing: 'linear',
+            });
+            setTimeout(() => {
+                document.getElementById("modal-container").classList.remove("visible");
+            }, 150)
+            document.getElementById("password").innerHTML="password";
+        }
 
         $(document).ready(function() {
     // Event listener for form submission
-    $('#generate-btn-form').submit(function(event) {
+        $('#generate-btn-form').submit(function(event) {
         // Prevent default form submission
         event.preventDefault();
 

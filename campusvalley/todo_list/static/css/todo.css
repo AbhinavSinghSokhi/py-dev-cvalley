@@ -5,6 +5,10 @@ body {
     color: #545454;
 }
 
+body::-webkit-scrollbar{
+    display: none;
+}
+
 .sign-up-section {
     background-color: white;
     padding: 6rem 10rem;
@@ -230,13 +234,50 @@ section{
 }
 
 
+#modal-container{
+    backdrop-filter: blur(10px);
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-container.visible{
+    display: flex;
+}
+
+#modal-container.visible #pass-gen-modal{
+    /* if modal-container has a class visible then do the following on the pass-gen-modal */
+    animation: drop-in 150ms linear;
+    -webkit-animation: drop-in 150ms linear forwards;
+}
+
+@keyframes drop-in {
+    from{
+        transform: translateY(-60vh)    ;
+        -webkit-transform: translateY(-60vh)    ;
+        -moz-transform: translateY(-60vh)    ;
+        -ms-transform: translateY(-60vh)    ;
+        -o-transform: translateY(-60vh)    ;
+}
+to{
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
+}
+
+body:has(#modal-container.visible){
+    overflow: hidden;
+}
+
 #pass-gen-modal{
     height: 30vh;
     width: 30vw;
-    display: none;
-    position:absolute;
-    left: 33%;
-    top:33%;
     background-color: #F0F0F0;
     color: #545454;
     padding: 2rem;
@@ -317,4 +358,8 @@ section{
 
 #close-modal-btn {
     text-align: right;
+
+    i:hover{
+        cursor: pointer;
+    }
 }

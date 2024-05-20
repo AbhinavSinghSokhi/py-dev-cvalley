@@ -4,8 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/index_calc.css' %}">
 </head>
 <body>
-    calculator
+    <div id="calculator_container">
+        <div id="calculator">
+            <div id="calc_heading">
+                Calculator
+            </div>
+            <div id="display_container">
+                <div id="expression_display">
+                    {% if response %}
+                    {{ response.expression }}
+                    {% endif %}
+                </div>
+                <div id="result">
+                    {% if response %}
+                    <div id="display" >{{response.result}}</div>
+                    {% else %}
+                    <div id="display" ></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="buttons_container">
+                <div class="button on_button_click default_button_bg">1</div>
+                <div class="button on_button_click default_button_bg">2</div>
+                <div class="button on_button_click default_button_bg">3</div>
+                <div class="on_button_click default_button_bg" id="clear_btn">C</div>
+                <div class="button on_button_click default_button_bg">4</div>
+                <div class="button on_button_click default_button_bg">5</div>
+                <div class="button on_button_click default_button_bg">6</div>
+                <div class="button on_button_click default_button_bg">+</div>
+                <div class="button on_button_click default_button_bg">7</div>
+                <div class="button on_button_click default_button_bg">8</div>
+                <div class="button on_button_click default_button_bg">9</div>
+                <div class="button on_button_click default_button_bg">-</div>
+                <div class="button on_button_click default_button_bg">*</div>
+                <div class="button on_button_click default_button_bg">0</div>
+                <div class="button on_button_click default_button_bg">/</div>
+                <form action="{% url 'evaluation' %}" method="post" id="evaluationForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="expression" id="expression">
+                    <button type="submit" class="on_button_click default_button_bg" id="calculate">=</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        buttons= document.getElementsByClassName('button')
+
+        for(var i=0; i<buttons.length ; i++){
+
+            buttons[i].addEventListener('click', function(){
+                // console.log("button clicked")
+                this.classList.remove('default_button_bg')
+                this.classList.add('on_button_click')
+                // this.style.background = 'red';
+
+                // if(i==3){
+                //     console.log("clear display")
+                // }
+
+                var button_content= this.textContent;
+                document.getElementById('display').textContent += button_content;
+
+                // setTimeout(function(){
+                setTimeout(()=>{
+                    this.classList.remove('on_button_click')
+                    this.classList.add('default_button_bg')
+                    // this.style.background= orginal_background;
+                }, 150)
+
+            });
+        }
+
+        document.getElementById('clear_btn').addEventListener('click', function(){
+            this.classList.remove('default_button_bg')
+            this.classList.add('on_button_click')
+
+            document.getElementById('display').textContent="";
+            document.getElementById('expression_display').textContent=""
+
+            setTimeout(()=>{
+                this.classList.remove('on_button_click')
+                this.classList.add('default_button_bg')
+            }, 150)
+        });
+
+        document.getElementById('evaluationForm').addEventListener('submit', function(event){
+            event.preventDefault();
+            this.classList.remove('default_button_bg')
+            this.classList.add('on_button_click')
+
+            var expression= document.getElementById('display').textContent;
+            console.log(expression)
+            const hiddenInput = document.getElementById('expression')
+            console.log(hiddenInput)
+            hiddenInput.value= expression;
+            // event.target.submit();
+            this.submit();
+
+            setTimeout(()=>{
+                this.classList.remove('on_button_click')
+                this.classList.add('default_button_bg')
+            }, 150)
+        })
+    </script>
 </body>
 </html>
