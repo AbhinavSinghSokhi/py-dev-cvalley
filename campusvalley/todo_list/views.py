@@ -184,12 +184,9 @@ def work_tasks(request):
 
 def passwordgeneration (request):
     if request.method == "POST":
-        pass_length= 10
+        pass_length= int(request.POST.get('password-length'))
 
         password_char= string.ascii_letters + string.digits + string.punctuation
         password = ''.join(random.choice(password_char) for _ in range(pass_length))
 
-        print(password)
-    # request.session['password']= password
         return JsonResponse({'password':password})
-    # return redirect (signup)

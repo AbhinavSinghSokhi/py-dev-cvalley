@@ -3,13 +3,10 @@
     --darkest-text-color:#545454;
     --primary-text-color:#636363;
     --secondary-text-color:#7f7f7f;
-    /* --primary-bg-color:rgb(250, 250, 250); */
     --primary-bg-color:#eee6d9;
-    /* --secondary-bg-color:rgb(240, 240, 240); */
     --secondary-bg-color:#e2d8c8;
     --third-bg-color: #ebe3d6;
 }
-
 
 body{
     margin: 0px;

@@ -68,6 +68,8 @@
             <div id="pass-gen-modal-subhead">Click on Generate to generate a strong password</div>
             <form action="generate-password" method="post" id="generate-btn-form">
                 {% csrf_token %}
+                <label for="">Password Length:</label>
+                <input type="number" min="6" max="20" name="password-length" id="password-length" required>
                 <button id="generate-btn">Generate</button>
             </form>
             <center>
@@ -102,34 +104,30 @@
 
         function closeModal(){
             document.getElementById("pass-gen-modal").animate([
-                { transform: 'translateY(0)' }, // from
-                { transform: 'translateY(60vh)' }      // to
+                { transform: 'translateY(0)' },
+                { transform: 'translateY(60vh)' }
             ], {
-                duration: 200,  // 150ms
+                duration: 200,
                 easing: 'linear',
             });
             setTimeout(() => {
                 document.getElementById("modal-container").classList.remove("visible");
             }, 150)
             document.getElementById("password").innerHTML="password";
+            document.getElementById("password-length").value="";
         }
 
         $(document).ready(function() {
-    // Event listener for form submission
         $('#generate-btn-form').submit(function(event) {
-        // Prevent default form submission
         event.preventDefault();
 
-        // Serialize form data
         var formData = $(this).serialize();
 
-        // Send AJAX request
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
             data: formData,
             success: function(response) {
-                // Update the content of the div with the response data
                 $('#password').html(response.password);
                 console.log("reponse added to html password", response)
             },
@@ -140,28 +138,22 @@
     });
 
     });
-    document.getElementById('copy-btn').addEventListener('click', function() {
-        // Get the content of the div
+
+        document.getElementById('copy-btn').addEventListener('click', function() {
         var content = document.getElementById('password').innerText;
 
-        // Create a temporary textarea element
         var input = document.createElement('input');
         input.style.position = 'fixed';
         input.style.opacity = '0';
         input.value = content;
 
-        // Append the input element to the body
         document.body.appendChild(input);
 
-        // Select the content of the input
         input.select();
 
-        // Copy the selected content to the clipboard
         document.execCommand('copy');
 
-        // Remove the input element from the document
         document.body.removeChild(input);
-        // Optionally, provide feedback to the user
         alert('Content copied to clipboard!');
     });
 

@@ -58,23 +58,14 @@
         for(var i=0; i<buttons.length ; i++){
 
             buttons[i].addEventListener('click', function(){
-                // console.log("button clicked")
                 this.classList.remove('default_button_bg')
                 this.classList.add('on_button_click')
-                // this.style.background = 'red';
-
-                // if(i==3){
-                //     console.log("clear display")
-                // }
-
                 var button_content= this.textContent;
                 document.getElementById('display').textContent += button_content;
 
-                // setTimeout(function(){
                 setTimeout(()=>{
                     this.classList.remove('on_button_click')
                     this.classList.add('default_button_bg')
-                    // this.style.background= orginal_background;
                 }, 150)
 
             });
@@ -92,7 +83,6 @@
                 this.classList.add('default_button_bg')
             }, 150)
         });
-
         document.getElementById('evaluationForm').addEventListener('submit', function(event){
             event.preventDefault();
             this.classList.remove('default_button_bg')
@@ -103,7 +93,6 @@
             const hiddenInput = document.getElementById('expression')
             console.log(hiddenInput)
             hiddenInput.value= expression;
-            // event.target.submit();
             this.submit();
 
             setTimeout(()=>{
